@@ -32,7 +32,7 @@ public class MenuController {
             Category catEnum = Category.valueOf(category.toUpperCase());
             return ResponseEntity.ok(menuService.getMenusByCategory(catEnum));
         } catch (IllegalArgumentException e) {
-            throw new InvalidCategoryException("Invalid category: " + category);
+          //  throw new InvalidCategoryException("Invalid category: " + category);
         }
     }
 }
