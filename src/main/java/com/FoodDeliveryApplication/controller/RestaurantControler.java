@@ -1,6 +1,9 @@
 package com.FoodDeliveryApplication.controller;
 
 import com.FoodDeliveryApplication.entity.Restaurant;
+/*
+import com.FoodDeliveryApplication.exception.InvalidCategoryException;
+*/
 import com.FoodDeliveryApplication.service.RestaurantService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -38,7 +41,7 @@ public class RestaurantControler{
 
     @DeleteMapping("/{id}")
     public void deleteRestaurant(@PathVariable Long id) {
-        restaurantService.deleteRestaurant(id);
+           restaurantService.deleteRestaurant(id);
     }
 
 }

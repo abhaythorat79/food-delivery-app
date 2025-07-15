@@ -3,6 +3,9 @@ package com.FoodDeliveryApplication.controller;
 
 import com.FoodDeliveryApplication.entity.Menu;
 import com.FoodDeliveryApplication.enums.Category;
+/*
+import com.FoodDeliveryApplication.exception.InvalidCategoryException;
+*/
 import com.FoodDeliveryApplication.service.MenuService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,11 +31,7 @@ public class MenuController {
     // Get Menus by Category
     @GetMapping("/category/{category}")
     public ResponseEntity<List<Menu>> getMenusByCategory(@PathVariable String category) {
-        try {
-            Category catEnum = Category.valueOf(category.toUpperCase());
-            return ResponseEntity.ok(menuService.getMenusByCategory(catEnum));
-        } catch (IllegalArgumentException e) {
-          //  throw new InvalidCategoryException("Invalid category: " + category);
-        }
+        Category catEnum = Category.valueOf(category.toUpperCase());
+        return ResponseEntity.ok(menuService.getMenusByCategory(catEnum));
     }
 }
