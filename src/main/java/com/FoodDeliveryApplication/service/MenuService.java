@@ -11,4 +11,6 @@ public interface MenuService {
     List<Menu> getMenusByCategory(Category category);
     MenuDTO createMenu(MenuDTO menuDTO);
 
+    List<MenuDTO> getMenuByRestaurant(Long restaurantId);
+
 }

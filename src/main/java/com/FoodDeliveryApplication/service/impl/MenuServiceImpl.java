@@ -4,6 +4,7 @@ import com.FoodDeliveryApplication.dto.MenuDTO;
 import com.FoodDeliveryApplication.entity.Menu;
 import com.FoodDeliveryApplication.entity.Restaurant;
 import com.FoodDeliveryApplication.enums.Category;
+import com.FoodDeliveryApplication.exception.ResourceNotFoundException;
 import com.FoodDeliveryApplication.repository.MenuRepository;
 import com.FoodDeliveryApplication.repository.RestaurantRepository;
 import com.FoodDeliveryApplication.service.MenuService;
@@ -13,6 +14,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class MenuServiceImpl implements MenuService {
@@ -53,4 +55,17 @@ public class MenuServiceImpl implements MenuService {
         Menu savedMenu = menuRepository.save(menu);
         return modelMapper.map(savedMenu, MenuDTO.class);
     }
+
+    @Override
+    public List<MenuDTO> getMenuByRestaurant(Long restaurantId) {
+        Restaurant restaurant = restaurantRepository.findById(restaurantId)
+                .orElseThrow(() -> new ResourceNotFoundException("Restaurant", "id", restaurantId));
+
+        List<Menu> menuItems = menuRepository.findByRestaurant(restaurant);
+
+        return menuItems.stream()
+                .map(menu -> modelMapper.map(menu, MenuDTO.class))
+                .collect(Collectors.toList());
+    }
+
 }
